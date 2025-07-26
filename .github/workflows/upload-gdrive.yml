@@ -1,0 +1,27 @@
+name: Update Google Drive
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install google-api-python-client google-auth google-auth-oauthlib google-auth-httplib2
+
+      - name: Create credentials.json
+        run: echo "${{ secrets.GDRIVE_CREDENTIALS_JSON }}" > credentials.json
+
+      - name: Upload to Google Drive
+        run: python update_drive.py
