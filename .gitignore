@@ -1,2 +1,5 @@
 credentials.json
+credentials_b64.txt
+token_drive_v3.pickle
+token_b64.txt
 *.env
