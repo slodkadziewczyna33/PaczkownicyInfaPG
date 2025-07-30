@@ -28,6 +28,9 @@ jobs:
         run: |
           echo "${{ secrets.GDRIVE_TOKEN_B64 }}" | base64 -d > token_drive_v3.pickle
 
+      - name: Usuń pliki .gitkeep
+        run: find . -name ".gitkeep" -delete
+
       - name: Upload to Google Drive  
         run: python .github/workflows/update_drive.py
         working-directory: ${{ github.workspace }}
