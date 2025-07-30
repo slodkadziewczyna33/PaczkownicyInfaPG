@@ -32,5 +32,5 @@ jobs:
         run: find . -name ".gitkeep" -delete
 
       - name: Upload to Google Drive  
-        run: python .github/workflows/update_drive.py
+        run: pwd && tree . -L 2 && python .github/workflows/update_drive.py
         working-directory: ${{ github.workspace }}
