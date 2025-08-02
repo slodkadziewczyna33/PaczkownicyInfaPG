@@ -1,8 +1,13 @@
 import os
 import pathlib
+import hashlib
 from googleapiclient.errors import HttpError
 from googleapiclient.http import MediaFileUpload
 
+
+def file_md5(path):
+    with open(path, "rb") as f:
+        return hashlib.md5(f.read()).hexdigest()
 
 def get_existing_files_recursive(folder_id, service):
     query = f"'{folder_id}' in parents and trashed=false"
@@ -42,6 +47,7 @@ def ensure_folder(path, parent_id, drive_service, existing_items):
     }
     folder = drive_service.files().create(body=file_metadata, fields="id").execute()
     folders[path] = folder["id"]
+    print(f"✅ Added folder: {path}")
     return folder["id"] 
 
 def upload_file_or_folder(local_base_path, parent_drive_folder_id, drive_service, existing_items):
@@ -50,7 +56,6 @@ def upload_file_or_folder(local_base_path, parent_drive_folder_id, drive_service
 
         if local_path.is_dir():
             ensure_folder(relative_path, parent_drive_folder_id, drive_service, existing_items)
-            print(f"✅ Added folder: {relative_path}")
 
         elif local_path.is_file():
             
@@ -60,8 +65,20 @@ def upload_file_or_folder(local_base_path, parent_drive_folder_id, drive_service
             else:
                 parent_id = ensure_folder(parent_path, parent_drive_folder_id, drive_service, existing_items)
 
-            if relative_path in existing_items["files"]:
-                continue  # Already exists, skip
+            # check for updates
+            file_id = existing_items["files"].get(relative_path)
+            if file_id:
+                drive_file = drive_service.files().get(fileId=file_id, fields="md5Checksum").execute()
+                local_md5 = file_md5(local_path)
+                if drive_file.get("md5Checksum") == local_md5:
+                    continue
+                else:
+                    media = MediaFileUpload(str(local_path), resumable=True)
+                    drive_service.files().update(fileId=file_id, media_body=media).execute()
+                    print(f"🔁 Updated file: {relative_path}")
+                    continue
+
+            # upload new file
             file_metadata = {
                 "name": os.path.basename(local_path),
                 "parents": [parent_id]
