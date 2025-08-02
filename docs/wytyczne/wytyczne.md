@@ -41,15 +41,19 @@ I ważna rzecz - **jeśli jakieś materiały się przedawniły** (zmiana zakresu
 Struktura folderu:
 ```
 [(SKRÓT_PRZEDMIOTU)_Nazwa_Przedmiotu]/
+│
 ├── wykład/
 │    ├── [SKRÓT_PRZEDMIOTU]_[rok]_merge.pdf
-│    ├── [SKRÓT_PRZEDMIOTU]_[rok]_wykład_0[nr_wykladu]-[temat_wykladu].pdf
+│    └── [SKRÓT_PRZEDMIOTU]_[rok]_wykład_0[nr_wykladu]-[temat_wykladu].pdf
+│
 ├── kolokwia/
 │   └── [nr_kolosa]/
-│       ├── [SKRÓT_PRZEDMIOTU]_[rok]_kol_[nr_kol]_[prowadzący]_grupa_[nr_grupa].pdf
+│       └── [SKRÓT_PRZEDMIOTU]_[rok]_kol_[nr_kol]_[prowadzący]_grupa_[nr_grupa].pdf
+│
 ├── opracowania/
 │   ├── [SKRÓT_PRZEDMIOTU]_[rok]_[temat_notatki].pdf
 │   └── [SKRÓT_PRZEDMIOTU]_[rok]_[temat_opracowania].pdf
+│
 ├── laboratoria/
 │   ├── wspólne/
 │   │   └── lab_0[nr_laby]/
@@ -59,19 +63,24 @@ Struktura folderu:
 │   └── [nazwisko_prowadzacego]/
 │       └── lab_0[nr_laby]
 │          └── [SKRÓT_PRZEDMIOTU]_[rok]_lab_0[nr_laby]_instrukcja-[nazwisko_prowadzącego].pdf
+│
 ├── ćwiczenia/
 │    └── [nazwisko_prowadzącego] 
 │        └── [SKRÓT_PRZEDMIOTU]_[rok]_cw_0[nr_ćwiczeń]-[temat].pdf
+│
 ├── projekt/
 │   └── [rok]_[nr_projektu]/
 │       ├── [SKRÓT_PRZEDMIOTU]_[rok]_projekt_instrukcja-[nazwa_projektu].pdf
 │       └── [SKRÓT_PRZEDMIOTU]_[rok]_projekt_rozw_[nr_rozwiazania]/
 │           └── pliki.cpp # itp
+│
 ├── książki/
 │   ├── polecana_literatura_linki.txt
 │   └── łagodne_wprowadzenie_2026.pdf
+│
 ├── inne/
-│   ├── nagrania.txt # linki do nagrań
+│   └── nagrania.txt # linki do nagrań
+│
 └── stara_paczka/
     └── # podział jak wyżej, tylko wrzucamy tam już NIEAKTUALNE PLIKI (tzn. gdy wykłady się zmieniły albo forma egzaminu) (żeby zachować historię, ale nie zaśmiecać paczki)
 ```
@@ -80,14 +89,18 @@ Struktura folderu:
 Struktura folderu:
 ```
 (PP)_Podstawy_Programowania/
+│
 ├── wykład/
 │    ├── PP_2022_wyklad_merge.pdf
 │    └── PP_2022_wyklad_01-instrukcje_warunkowe.pdf
+│
 ├── kolokwia/
 │   └── 1/
 │       └── PP_2022_kol_1_ostrowski_grupa_a.pdf
+│
 ├── opracowania/
 │   └── PP_2022_przed_egzaminem_pawiłojć.pdf
+│
 ├── laboratoria/
 │   ├── wspólne/
 │   │   └── lab_01/
@@ -99,24 +112,29 @@ Struktura folderu:
 │           ├── PP_2022_lab_01_instrukcja-ostrowski.pdf
 │           └── PP_2022_lab_01_rozw_ostrowski/
 │               └── zad1.cpp
+│
 ├── ćwiczenia/
 │    └── ostrowski
 │        ├── PP_2022_cw_01-wskazniki.pdf
 │        └── PP_2022_cw_01_rozw-wskazniki/
 │            └── zad1.cpp
+│
 ├── projekt/
 │   └── 2022_1/
 │       ├── PP_2022_projekt_instrukcja-jumping_frog.pdf
 │       └── PP_2022_projekt_rozw_1-jumping_frog
 │           └── pliki.cpp # itp
+│
 ├── książki/
 │   ├── polecana_literatura_linki.txt
 │   ├── polecana_literatura_skan.pdf
 │   ├── skrypt_prowadzącego.pdf
 │   └── łagodne_wprowadzenie_2026.pdf
+│
 ├── inne/
 │   ├── nagrania.txt # w środku np. PP - [link_do_playlisty_z_PP]
 │   └── przydatne_linki.txt
+│
 └── stara_paczka/
     └── # podział jak wyżej, tylko wrzucamy tam już NIEAKTUALNE PLIKI (tzn. gdy wykłady się zmieniły albo forma egzaminu) (żeby zachować historię, ale nie zaśmiecać paczki)
 ```
