@@ -6,5 +6,5 @@ token_b64.txt
 *.env
 
 # other
-gitignores/.gitignore
-gitignores/.gitignore.temp
+utility/.gitignore
+utility/.gitignore.temp
