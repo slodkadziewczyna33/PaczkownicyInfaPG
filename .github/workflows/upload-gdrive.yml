@@ -32,5 +32,7 @@ jobs:
         run: find . -name ".gitkeep" -delete
 
       - name: Upload to Google Drive  
+        env:
+          LOCAL_FOLDER: paczka
         run: pwd && tree . -L 2 && python .github/workflows_scripts/update_drive.py
         working-directory: ${{ github.workspace }}
