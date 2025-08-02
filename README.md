@@ -3,8 +3,8 @@
 Paczka Google Drive: https://drive.google.com/drive/folders/1AMJFl1pLO3EPuq6jlE4fCtxg1V4kvshv?usp=sharing
 
 ## Ważne!! - przeczytać przed dodawaniem do paczki:
-1. [Jak dodawać do paczki?](udzial_w_paczce/udzial_w_paczce.md)  
-2. [Wytyczne odnośnie struktury i nazw plików - #todo]()
+1. [Jak dodawać do paczki?](docs/udzial_w_paczce/udzial_w_paczce/udzial_w_paczce.md)  
+2. [Wytyczne odnośnie struktury i nazw plików](docs/wytyczne/wytyczne.md)
 
 W skrócie:  
 1. Forkujemy repozytorium 

@@ -23,6 +23,7 @@ git checkout -b YOUR_BRANCH_NAME
 
 ### 3. dodaj swoje pliki
 # (w tym kroku czy to poprzez konsolę, czy zwykły eksprolator plików dodaj do repozytorium pliki które chcesz dodać do paczki)
+# WAŻNE!! - przeczytaj docs/wytyczne.md w celu dostosowania nazw plików
 cp ~/jakis_plik.txt paczka/SEMx/PRZEDMIOT/
 
 ### 4. dodaj pliki do swojego repozytorium lokalnie
@@ -76,6 +77,9 @@ Upewnij się, że twój branch ma nazę, która mówi, co dodajesz (np. `nazwa_p
 ![alt text](resources/udzial_w_paczce_src/image-5.png)  
 
 5.2. Upewnij się, że ten krok wykonasz według instrukcji. Żeby dodać plik w konkretny folder na GitHubie, musisz mieć taką samą strukturę u siebie. Jeżeli chcesz, możesz pobrać repozytorium w postaci .zip (zielony przycisk "Code" w poprzednim kroku), wypakować je, włożyć swoje pliki do folderu tam i wtedy cały folder "paczka" wrzucić w to miejsce. GitHub automatycznie odfiltruje, które pliki się zmieniły, a które nie, więc nie będzie przesyłał wszystkiego.  
+
+**Ważne!!** - przeczytaj [wytyczne](../wytyczne/wytyczne.md) żeby dobrze nazywać pliki i wrzucać je w dobre miejsca.  
+
 Po kolei:
 1. Odwzoruj strukturę (lub po prostu pobierz zipa) u siebie na komputerze.
 2. Chwyć za nadrzędny folder "paczka"
@@ -109,8 +113,8 @@ Gratulacje! Dodałeś swoje pierwsze zmiany. Teraz oczekują ona na zatwierdzeni
 
 ## Uwagi
 
-### Zachowaj porządek
-Pamiętaj - paczka jest dla was, więc fajnie by było móc szybko znaleźć to czego szukamy. Spójrz do [wytyczne_dotyczące_nazw - #todo]() i ponazywaj odpowiednio pliki i poumieszczaj je w odpowiednich miejscach.
+### Przeczytaj [wytyczne](../wytyczne/wytyczne.md) i zachowaj porządek
+Przed dodawaniem materiałów do paczki przeczytaj plik [wytyczne.md](../wytyczne/wytyczne.md) i stosuj się do nich. Pamiętaj - paczka jest dla was, więc fajnie by było móc szybko znaleźć to czego szukamy. Lepiej spędzić więcej czasu przy dodawaniu, niż potem za każdym razem przy szukaniu. Spójrz do [wytycznych](../wytyczne/wytyczne.md) i ponazywaj odpowiednio pliki i poumieszczaj je w odpowiednich miejscach.
 
 ### Puste foldery
 Puste foldery na GitHubie nie są domyślnie uploadowane. Aby dodać pusty folder, należy umieścić plik nazwany **dokładnie** ".gitkeep". Będzie on dawał znać githubowi, że specjalnie dodajemy pusty folder, ale plik ten nie pojawi się w paczce.  
@@ -125,7 +129,8 @@ Czasami do oryginalnej paczki ktoś może dodać zmiany, o których chcielibyśm
 ### Usuwanie zbędnych plików  
 Upewnij się, że dodajesz tylko niezbędne pliki (tzn. pliki źródłowe, takie jak .cpp, .c) a nie wynikowe (np. .exe, .dll) lub konfiguracyjne (np. .vscode, .projsx). Zapewni to mały rozmiar paczki i zostawi tylko niezbędne elementy.
 
-Jeśli nie chcesz usuwać niczego ze swojego dysku, to polecam stworzyć plik `.gitignore` i w nim wpisać wszystkie rozszerzenia / nazwy plików / nazwy folderów, których nie chcesz umieszczać w paczce. Do pomocy w tym stworzyłem [gitignore generator](../../utility/gitignore-generator.sh) (działa tylko na Linuxie lub WSLu). Dokładny opis jak go używać jest dostępny na [repozytorium tego projektu](https://github.com/Billypl/GitignoreGenerator) lub przy użyciu flagi -h.
+Jeśli nie chcesz usuwać niczego ze swojego dysku, to polecam stworzyć plik `.gitignore` i w nim wpisać wszystkie rozszerzenia / nazwy plików / nazwy folderów, których nie chcesz umieszczać w paczce.  
+Do pomocy w tym stworzyłem gitignore generator ([gitignore_generator.sh](../../utility/gitignore-generator.sh)) (działa tylko na Linuxie lub WSLu). Dokładny opis jak go używać jest dostępny na [repozytorium tego projektu](https://github.com/Billypl/GitignoreGenerator) lub przy użyciu flagi -h.
 
 ### Filmiki
 Jeśli chodzi o filmy, to ogromna prośba, żeby wrzucać je na YouTube'a i załączać tylko linki. Przez naturę GitHuba ciężko wrzucać tam duże pliki. 
