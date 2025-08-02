@@ -1,5 +1,4 @@
 import os
-import pathlib
 from gdrive_auth import Create_Service
 from gdrive_utility import (
     get_existing_files_recursive,
