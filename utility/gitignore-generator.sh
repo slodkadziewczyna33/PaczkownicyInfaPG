@@ -52,7 +52,8 @@ show_help() {
     echo
     echo "Options:"
     echo "  -h, --help          Show this help message and exit"
-    echo "  -l, --list          List all available .gitignore templates"
+    echo "  -l, --list          List most used PG .gitignore templates"
+    echo "  -a, --all           List all available .gitignore templates"
     echo
     echo "Description:"
     echo "  This script allows you to generate a .gitignore file based on selected"
@@ -65,6 +66,8 @@ show_help() {
     echo "  $0                  # Run in interactive mode (menu)"
     echo "  $0 Python VSCode    # Create a .gitignore for Python and VSCode"
     echo "  $0 Java Node Docker # Create a .gitignore for Java, Node, and Docker"
+    echo "  $0 -a               # Fetch all aviable .gitignore files"
+    echo "  $0 -l               # Fetch .gitignore files for most used languages on PG"
     echo
     echo "Supported templates are fetched from:"
     echo "  https://github.com/github/gitignore"
@@ -100,10 +103,10 @@ list_options() {
 if [[ "$1" == "-h" || "$1" == "--help" ]]; then
     show_help
     exit 0
-elif [[ "$1" == "-l" || "$1" == "--list" ]]; then
+elif [[ "$1" == "-a" || "$1" == "--all" ]]; then
     list_templates_from_github | column
     exit 0
-elif [[ "$1" == "-a" || "$1" == "--all" ]]; then
+elif [[ "$1" == "-l" || "$1" == "--list" ]]; then
     list_options | column
     exit 0
 fi
