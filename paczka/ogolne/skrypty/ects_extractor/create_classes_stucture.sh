@@ -1,6 +1,7 @@
 #!/bin/bash
 
 main_dir="test"
+rm -rf "$main_dir"
 
 # Funkcja tworząca odpowiednie foldery dla przedmiotu
 create_subject_folders() {
@@ -52,10 +53,21 @@ while IFS= read -r line; do
         current_profile=""
         mkdir -p "$main_dir/$current_semester"
         
-        # Dla semestrów 5 i 6 tworzymy folder Wspolne
-        if [[ "$current_semester" == "SEMESTR5" || "$current_semester" == "SEMESTR6" ]]; then
+        # Dla semestrów 5, 6 i 7 tworzymy folder Wspolne
+        if [[ "$current_semester" == "SEMESTR5" || "$current_semester" == "SEMESTR6" || "$current_semester" == "SEMESTR7" ]]; then
             mkdir -p "$main_dir/$current_semester/Wspolne"
         fi
+        continue
+    fi
+    
+    # Sprawdzamy czy to seminarium dyplomowe - specjalna obsługa
+    if [[ "$line" =~ \(SDII\)_Seminarium_Dyplomowe_Inżynierskie_II ]]; then
+        subject_code="SDII"
+        subject_name="Seminarium_Dyplomowe_Inżynierskie_II"
+        classes=$(echo "$line" | awk -F': ' '{print $2}')
+        folder_name="(${subject_code})_${subject_name// /_}"
+        full_path="${main_dir}/${current_semester}/Wspolne/${folder_name}"
+        create_subject_folders "$full_path" "$classes"
         continue
     fi
     
@@ -79,7 +91,7 @@ while IFS= read -r line; do
             if [[ -n "$current_profile" ]]; then
                 full_path="${main_dir}/${current_semester}/${current_profile}/${folder_name}"
             else
-                full_path="${main_dir}/${current_semester}/${folder_name}"
+                full_path="${main_dir}/${current_semester}/Wspolne/${folder_name}"
             fi
 
             create_subject_folders "$full_path" "$classes"
@@ -117,7 +129,7 @@ while IFS= read -r line; do
         elif [[ -n "$current_stream" ]]; then
             full_path="${main_dir}/${current_semester}/${current_stream}/${folder_name}"
         else
-            if [[ "$current_semester" == "SEMESTR5" || "$current_semester" == "SEMESTR6" ]]; then
+            if [[ "$current_semester" == "SEMESTR5" || "$current_semester" == "SEMESTR6" || "$current_semester" == "SEMESTR7" ]]; then
                 full_path="${main_dir}/${current_semester}/Wspolne/${folder_name}"
             else
                 full_path="${main_dir}/${current_semester}/${folder_name}"
