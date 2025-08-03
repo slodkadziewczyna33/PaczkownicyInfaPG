@@ -51,6 +51,11 @@ while IFS= read -r line; do
         current_stream=""
         current_profile=""
         mkdir -p "$main_dir/$current_semester"
+        
+        # Dla semestrów 5 i 6 tworzymy folder Wspolne
+        if [[ "$current_semester" == "SEMESTR5" || "$current_semester" == "SEMESTR6" || "$current_semester" == "SEMESTR7" ]]; then
+            mkdir -p "$main_dir/$current_semester/Wspolne"
+        fi
         continue
     fi
     
@@ -87,7 +92,12 @@ while IFS= read -r line; do
         elif [[ -n "$current_stream" ]]; then
             full_path="${main_dir}/${current_semester}/${current_stream}/${folder_name}"
         else
-            full_path="${main_dir}/${current_semester}/${folder_name}"
+            # Dla semestrów 5 i 6 przedmioty bez strumienia trafiają do Wspolne
+            if [[ "$current_semester" == "SEMESTR5" || "$current_semester" == "SEMESTR6" || "$current_semester" == "SEMESTR7" ]]; then
+                full_path="${main_dir}/${current_semester}/Wspolne/${folder_name}"
+            else
+                full_path="${main_dir}/${current_semester}/${folder_name}"
+            fi
         fi
 
         # Tworzymy foldery
