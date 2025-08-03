@@ -6,6 +6,18 @@ output_file="subjects_formatted.txt"
 # Clear the output file
 > "$output_file"
 
+# Download the CSV 
+url="https://ects.pg.edu.pl/pl/courses/15450/plan.xls"
+tmp_xls="struktura.xls"
+tmp_csv="struktura.csv"
+echo "Downloading data from $url..." && \
+curl -s "$url" > "$tmp_xls" && \
+echo "Converting XLS to CSV..." && \
+ssconvert -S $tmp_xls $tmp_csv  2>/dev/null && \
+mv $tmp_csv."0" $tmp_csv && \
+rm $tmp_xls
+
+echo "Processing data from CSV..."
 awk -v FPAT='[^,]*|"[^"]+"' '
 BEGIN {
     current_semester = ""
@@ -66,7 +78,7 @@ BEGIN {
     # Format full name
     formatted_name = ""
     for (i in words) {
-        if (i > 1) formatted_name = formatted_name "-"
+        if (i > 1) formatted_name = formatted_name "_"
         word = words[i]
         first_char = toupper(substr(word, 1, 1))
         rest = substr(word, 2)
@@ -101,4 +113,5 @@ BEGIN {
     printf "%s(%s)_%s: %s\n", current_indent, acronym, formatted_name, class_types >> "'"$output_file"'"
 }' "$input_file"
 
-echo "Data has been saved to $output_file with full semester/stream/profile organization"
+rm $input_file
+echo "Data has been saved to $output_file!"
