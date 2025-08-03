@@ -5,6 +5,7 @@ Paczka Google Drive: https://drive.google.com/drive/folders/1AMJFl1pLO3EPuq6jlE4
 ## Ważne!! - przeczytać przed dodawaniem do paczki:
 1. [Jak dodawać do paczki?](docs/udzial_w_paczce/udzial_w_paczce.md)  
 2. [Wytyczne odnośnie struktury i nazw plików](docs/wytyczne/wytyczne.md)
+3. Nie masz pomysłów, z czym możesz pomóc? Przeglądnij [issues](https://github.com/Billypl/PaczkownicyInfaPG/issues) z przykładowymi pomysłami
 
 W skrócie:  
 1. Forkujemy repozytorium 
