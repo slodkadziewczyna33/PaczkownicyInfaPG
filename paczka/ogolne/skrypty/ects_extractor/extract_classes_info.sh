@@ -51,6 +51,7 @@ semestr > 0 {
     # Wyciągnij nazwę przedmiotu
     if (match($0, /<span class="cell__inner">([^<]+)<\/span>/, name)) {
         subject = name[1]
+        gsub(/\n/, "", subject)
         # Pomijaj nagłówki i stopki
         if (subject !~ /ECTS|Suma punktów|Liczba godzin|Karta przedmiotu|WYCHOWANIE FIZYCZNE|PROJEKT GRUPOWY/) {
             # Wyciągnij komponenty

@@ -27,6 +27,7 @@
 (PAA)_Podstawy_Analizy_Algorytmów: W C
 (WFI)_Wychowanie_Fizyczne_II: C
 [Semestr 4]
+(WFI)_WYCHOWANIE_FIZYCZNE_II: C
 (PT)_Platformy_Technologiczne: W L
 (SOMOXII)_System_Operacyjny_MAC_OS_X_I_IOS: W L
 (SI)_Sztuczna_Inteligencja: W L P
@@ -43,11 +44,13 @@
 (SAI)_Społeczne_Aspekty_Informatyki: W P
 (IO)_Inżynieria_Oprogramowania: W L
 [Semestr 6]
+(PGI)_PROJEKT_GRUPOWY_I: P
 (SDII)_Seminarium_Dyplomowe_Inżynierskie_I: S
 (ZBS)_Zarządzanie_Bezpieczeństwem_Sieci: W L
 (RPI)_Realizacja_Projektu_Informatycznego: W P
 (ZFI)_Zarządzanie_Firmą_Informatyczną: W P
 (PDII)_Projekt_Dyplomowy_Inżynierski_I: P
 [Semestr 7]
+(PGI)_PROJEKT_GRUPOWY_II: P
 (P)_Praktyka:
 (PDII)_Projekt_Dyplomowy_Inżynierski_II: P
