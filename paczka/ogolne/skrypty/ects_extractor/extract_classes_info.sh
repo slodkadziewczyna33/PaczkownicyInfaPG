@@ -1,93 +1,104 @@
 #!/bin/bash
 
-input_file="struktura.txt"
-output_file="przedmioty.txt"
+input_file="struktura.csv"
+output_file="subjects_formatted.txt"
 
-# Czyszczenie pliku wyjściowego
+# Clear the output file
 > "$output_file"
 
-# Ekstrakcja danych
-awk -v output="$output_file" '
+awk -v FPAT='[^,]*|"[^"]+"' '
 BEGIN {
-    RS="<div class=\"data-table__row\">"
-    FS="\n"
-    semestr=0
+    current_semester = ""
+    current_stream = ""
+    current_profile = ""
+    OFS=""
+    indent = "  "
 }
-function capitalize(str) {
-    split(str, words, "_")
-    result = ""
-    for (i in words) {
-        if (words[i] != "") {
-            first = toupper(substr(words[i], 1, 1))
-            rest = substr(words[i], 2)
-            if (i > 1) result = result "_"
-            result = result first rest
-        }
-    }
-    return result
+
+# Capture semester headers
+/^"SEMESTR [0-9]"/ {
+    current_semester = $0
+    gsub(/"/, "", current_semester) # Remove quotes
+    gsub(/,+/, "", current_semester) # Remove commas
+    current_stream = ""
+    current_profile = ""
+    print "\n" current_semester >> "'"$output_file"'"
+    next
 }
-function get_acronym(subject) {
-    # Zamień spacje na podkreślenia
-    gsub(/ /, "_", subject)
-    # Usuń podwójne podkreślenia
-    gsub(/__/, "_", subject)
-    # Wygeneruj akronim
-    split(subject, words, "_")
+
+# Capture stream headers
+/^"[0-9] [^"]+ \(Strumień\)"/ {
+    current_stream = $0
+    gsub(/"/, "", current_stream)        # Remove quotes
+    gsub(/^[0-9]+ /, "", current_stream) # Remove number from beginning
+    gsub(/,+/, "", current_stream)       # Remove commas
+    current_profile = ""
+    print indent current_stream >> "'"$output_file"'"
+    next
+}
+
+# Capture profile headers
+/^"[0-9] [^"]+ \(Profil\)"/ {
+    current_profile = $0
+    gsub(/"/, "", current_profile)
+    gsub(/^[0-9]+ /, "", current_profile) # Remove number from beginning
+    gsub(/,+/, "", current_profile)       # Remove commas
+    print indent indent current_profile >> "'"$output_file"'"
+    next
+}
+
+/^[0-9]+,/ {
+    # Skip if not in a semester
+    if (current_semester == "") next
+    
+    # Extract and format subject name
+    gsub(/"/, "", $4)
+    subject = $4
+    
+    # Create acronym
     acronym = ""
+    split(subject, words, " ")
     for (i in words) {
-        if (words[i] != "") {
-            acronym = acronym substr(words[i], 1, 1)
-        }
+        first_char = toupper(substr(words[i], 1, 1))
+        acronym = acronym first_char
     }
-    capitalized = capitalize(subject)
-    return "(" toupper(acronym) ")_" capitalized
-}
-/<strong>Semestr: [0-9]/ {
-    match($0, /Semestr: ([0-9])/, arr)
-    semestr=arr[1]
-    printf "[Semestr %s]\n", semestr >> output
-}
-semestr > 0 {
-    # Wyciągnij nazwę przedmiotu
-    if (match($0, /<span class="cell__inner">([^<]+)<\/span>/, name)) {
-        subject = name[1]
-        gsub(/\n/, "", subject)
-        # Pomijaj nagłówki i stopki
-        if (subject !~ /ECTS|Suma punktów|Liczba godzin|Karta przedmiotu|WYCHOWANIE FIZYCZNE|PROJEKT GRUPOWY/) {
-            # Wyciągnij komponenty
-            split($0, lines, "<span class=\"cell__inner\">|</span>")
-            w = c = l = p = s = ""
-            for (i=2; i<=length(lines); i+=2) {
-                val = lines[i]
-                gsub(/^[ \t-]+|[ \t-]+$/, "", val)
-                if (val == "") val = "-"
-                
-                if (i == 4) { ects = val }
-                else if (i == 6) { w = val }
-                else if (i == 8) { c = val }
-                else if (i == 10) { l = val }
-                else if (i == 12) { p = val }
-                else if (i == 14) { s = val }
-            }
-            
-            # Generuj akronim i formatuj nazwę
-            formatted_subject = get_acronym(subject)
-            
-            # Formatuj wynik - tylko skróty dla wartości różnych od "-"
-            output_line = formatted_subject ":"
-            if (w != "-") output_line = output_line " W"
-            if (c != "-") output_line = output_line " C" 
-            if (l != "-") output_line = output_line " L"
-            if (p != "-") output_line = output_line " P"
-            if (s != "-") output_line = output_line " S"
-            
-            # Usuń potencjalne podwójne spacje
-            gsub(/  +/, " ", output_line)
-            print output_line >> output
-        }
+    
+    # Format full name
+    formatted_name = ""
+    for (i in words) {
+        if (i > 1) formatted_name = formatted_name "-"
+        word = words[i]
+        first_char = toupper(substr(word, 1, 1))
+        rest = substr(word, 2)
+        formatted_name = formatted_name first_char rest
     }
-}
-END {
-    print "\nDane zostały zapisane do pliku " output
-}
-' "$input_file"
+    
+    # Extract hours
+    lecture = $8
+    exercises = $9
+    lab = $10
+    project = $11
+    seminar = $12
+    
+    # Build class types
+    class_types = ""
+    if (lecture > 0) class_types = class_types "W "
+    if (exercises > 0) class_types = class_types "C "
+    if (lab > 0) class_types = class_types "L "
+    if (project > 0) class_types = class_types "P "
+    if (seminar > 0) class_types = class_types "S"
+    sub(/ $/, "", class_types)
+    
+    # Determine indentation level
+    current_indent = indent
+    if (current_profile != "") {
+        current_indent = indent indent indent
+    } else if (current_stream != "") {
+        current_indent = indent indent
+    }
+    
+    # Print course
+    printf "%s(%s)_%s: %s\n", current_indent, acronym, formatted_name, class_types >> "'"$output_file"'"
+}' "$input_file"
+
+echo "Data has been saved to $output_file with full semester/stream/profile organization"
