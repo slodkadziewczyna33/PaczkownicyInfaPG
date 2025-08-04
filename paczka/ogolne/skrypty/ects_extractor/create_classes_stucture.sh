@@ -1,7 +1,12 @@
 #!/bin/bash
 
-main_dir="test"
-rm -rf "$main_dir"
+main_dir="../../../"
+
+# Funkcja konwertująca SEMESTRX na SEMX
+convert_semester_name() {
+    local semester="$1"
+    echo "$semester" | sed 's/SEMESTR/SEM/'
+}
 
 # Funkcja tworząca odpowiednie foldery dla przedmiotu
 create_subject_folders() {
@@ -47,19 +52,20 @@ while IFS= read -r line; do
     
     # Sprawdzamy czy linia to nowy semestr
     if [[ "$line" =~ ^SEMESTR ]]; then
-        current_semester="$line"
-        current_semester=$(echo "$current_semester" | sed 's/ //; s/ //g')
+        original_semester="$line"
+        current_semester=$(convert_semester_name "$original_semester" | sed 's/ //g')
         current_stream=""
         current_profile=""
         mkdir -p "$main_dir/$current_semester"
         
         # Dla semestrów 5, 6 i 7 tworzymy folder Wspolne
-        if [[ "$current_semester" == "SEMESTR5" || "$current_semester" == "SEMESTR6" || "$current_semester" == "SEMESTR7" ]]; then
+        if [[ "$current_semester" == "SEM5" || "$current_semester" == "SEM6" || "$current_semester" == "SEM7" ]]; then
             mkdir -p "$main_dir/$current_semester/Wspolne"
         fi
         continue
     fi
     
+    # [Reszta kodu pozostaje bez zmian...]
     # Sprawdzamy czy to seminarium dyplomowe - specjalna obsługa
     if [[ "$line" =~ \(SDII\)_Seminarium_Dyplomowe_Inżynierskie_II ]]; then
         subject_code="SDII"
@@ -72,7 +78,7 @@ while IFS= read -r line; do
     fi
     
     # SEMESTR7 - specjalna obsługa (pomijamy strumienie, tylko profile)
-    if [[ "$current_semester" == "SEMESTR7" ]]; then
+    if [[ "$current_semester" == "SEM7" ]]; then
         # Sprawdzamy czy linia to profil
         if [[ "$line" =~ ^[[:space:]]*(.*)\ \(Profil\) ]]; then
             current_profile="${BASH_REMATCH[1]}"
@@ -90,7 +96,7 @@ while IFS= read -r line; do
             formatted_name=$(echo "$profile_name" | sed -E 's/(^| )([a-z])/\1\u\2/g' | tr ' ' '_')
             
             current_profile="(${acronym})_${formatted_name}"
-            mkdir -p "$main_dir/$current_semester/$current_stream/$current_profile"
+            mkdir -p "$main_dir/$current_semester/$current_profile"
             continue
         fi
         
@@ -142,7 +148,7 @@ while IFS= read -r line; do
         elif [[ -n "$current_stream" ]]; then
             full_path="${main_dir}/${current_semester}/${current_stream}/${folder_name}"
         else
-            if [[ "$current_semester" == "SEMESTR5" || "$current_semester" == "SEMESTR6" || "$current_semester" == "SEMESTR7" ]]; then
+            if [[ "$current_semester" == "SEM5" || "$current_semester" == "SEM6" || "$current_semester" == "SEM7" ]]; then
                 full_path="${main_dir}/${current_semester}/Wspolne/${folder_name}"
             else
                 full_path="${main_dir}/${current_semester}/${folder_name}"
@@ -155,23 +161,24 @@ done < "$1"
 
 echo "Struktura folderów została utworzona."
 
-# Funkcja dodająca .gitkeep
-add_gitkeep() {
-    local dir="$1"
-    # Sprawdź czy to nie jest folder do pominięcia
-    if [[ "$dir" == *"/stara_paczka" ]] || [[ "$dir" == *"/inne/książki" ]]; then
-        return
-    fi
-    
-    if [ -d "$dir" ] && [ ! -f "$dir/.gitkeep" ]; then
-        touch "$dir/.gitkeep"
-        echo "Added .gitkeep to: $dir"
-    fi
+# Funkcja znajdująca najgłębsze PUSTE foldery
+find_empty_deepest_dirs() {
+    find "$main_dir" -type d | while read -r dir; do
+        # Sprawdź czy folder jest kompletnie pusty (0 elementów)
+        if [ -z "$(ls -A "$dir" 2>/dev/null)" ]; then
+            echo "$dir"
+        fi
+    done
 }
 
-# Główna pętla
-find "$main_dir" -type d | while read -r directory; do
-    add_gitkeep "$directory"
+# Dodaj .gitkeep w pustych najgłębszych folderach
+find_empty_deepest_dirs | while read -r dir; do
+    if [ ! -f "$dir/.gitkeep" ]; then
+        touch "$dir/.gitkeep"
+        echo "Dodano .gitkeep w pustym folderze: $dir"
+    else
+        echo "Pominięto (już istnieje .gitkeep): $dir"
+    fi
 done
 
-echo "Operacja zakończona. Pliki .gitkeep zostały dodane do wybranych folderów."
+echo "Zakończono - dodano .gitkeep w pustych najgłębszych folderach"
