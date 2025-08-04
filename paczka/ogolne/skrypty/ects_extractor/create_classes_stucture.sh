@@ -77,7 +77,20 @@ while IFS= read -r line; do
         if [[ "$line" =~ ^[[:space:]]*(.*)\ \(Profil\) ]]; then
             current_profile="${BASH_REMATCH[1]}"
             current_profile=$(echo "$current_profile" | sed 's/^[[:space:]]*//; s/[[:space:]]*$//')
-            mkdir -p "$main_dir/$current_semester/$current_profile"
+            
+            # Generowanie akronimu (K + pierwsze litery każdego słowa)
+            profile_name=$current_profile
+            acronym="K"
+            for word in $profile_name; do
+                first_char=$(echo "${word:0:1}" | tr '[:lower:]' '[:upper:]')
+                acronym="${acronym}${first_char}"
+            done
+            
+            # Formatowanie nazwy z podkreśleniami
+            formatted_name=$(echo "$profile_name" | sed -E 's/(^| )([a-z])/\1\u\2/g' | tr ' ' '_')
+            
+            current_profile="(${acronym})_${formatted_name}"
+            mkdir -p "$main_dir/$current_semester/$current_stream/$current_profile"
             continue
         fi
         
