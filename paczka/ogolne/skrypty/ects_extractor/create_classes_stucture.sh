@@ -154,3 +154,24 @@ while IFS= read -r line; do
 done < "$1"
 
 echo "Struktura folderów została utworzona."
+
+# Funkcja dodająca .gitkeep
+add_gitkeep() {
+    local dir="$1"
+    # Sprawdź czy to nie jest folder do pominięcia
+    if [[ "$dir" == *"/stara_paczka" ]] || [[ "$dir" == *"/inne/książki" ]]; then
+        return
+    fi
+    
+    if [ -d "$dir" ] && [ ! -f "$dir/.gitkeep" ]; then
+        touch "$dir/.gitkeep"
+        echo "Added .gitkeep to: $dir"
+    fi
+}
+
+# Główna pętla
+find "$main_dir" -type d | while read -r directory; do
+    add_gitkeep "$directory"
+done
+
+echo "Operacja zakończona. Pliki .gitkeep zostały dodane do wybranych folderów."
