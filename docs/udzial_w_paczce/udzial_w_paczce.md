@@ -1,10 +1,13 @@
 # Jak dodawać pliki do paczki?
 
 ## Spis treści
-1. [Tutorial w terminalu](#tutorial---w-terminalu) (dla bardziej zaawansowanych)
-2. [Tutorial na stronie GitHuba](#tutorial---w-github-ui) (dla początkujących)
-3. [Uwagi](#uwagi) (na co warto zwrócić uwagę)
+1. [Tutorial na YouTube](#tutorial-wideo-na-youtube) (kompleksowe omówienie)
+2. [Tutorial w terminalu](#tutorial---w-terminalu) (dla bardziej zaawansowanych)
+3. [Tutorial na stronie GitHuba](#tutorial---w-github-ui) (dla początkujących)
+4. [Uwagi](#uwagi) (na co warto zwrócić uwagę)
 
+## Tutorial wideo na YouTube:
+Na tym kanale pojawi się tutorial wprowadzający do całego repo: https://www.youtube.com/@billy.d3v
 
 ## Tutorial - w terminalu:
 Nazwy z dużych liter (np. YOUR_BRANCH_NAME) muszą być uzupełnione faktycznymi nazwami.

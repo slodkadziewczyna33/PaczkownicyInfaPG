@@ -45,10 +45,12 @@ Struktura folderu:
 │
 ├── wykład/
 │    ├── [SKRÓT_PRZEDMIOTU]_[rok]_merge.pdf
-│    └── [SKRÓT_PRZEDMIOTU]_[rok]_wykład_0[nr_wykladu]-[temat_wykladu].pdf
+│    ├── [SKRÓT_PRZEDMIOTU]_[rok]_wykład_0[nr_wykladu]-[temat_wykladu].pdf
+│    └── egzamin/
+│       └── [SKROT_PRZEDMIOTU]_[rok]_egzamin_grupa_[nr_grupy].png
 │
 ├── kolokwia/
-│   └── [nr_kolosa]/
+│   └── kol_0[nr_kolosa]/
 │       └── [SKRÓT_PRZEDMIOTU]_[rok]_kol_[nr_kol]_[prowadzący]_grupa_[nr_grupa].pdf
 │
 ├── opracowania/
@@ -94,10 +96,12 @@ Struktura folderu:
 │
 ├── wykład/
 │    ├── PP_2022_wyklad_merge.pdf
-│    └── PP_2022_wyklad_01-instrukcje_warunkowe.pdf
+│    ├── PP_2022_wyklad_01-instrukcje_warunkowe.pdf
+│    └── egzamin/
+│       └── PP_2022_egzamin_grupa_a.png
 │
 ├── kolokwia/
-│   └── 1/
+│   └── kol_01/
 │       └── PP_2022_kol_1_ostrowski_grupa_a.pdf
 │
 ├── opracowania/
