@@ -43,7 +43,7 @@ Zaliczenie: Egzamin i dwa kolokwia
 Pochodne, całki, szeregi, równania różniczkowe - te pięć słów zapadnie wam na długo w pamięć. Zadania są schematyczne tak samo jak na algebrze liniowej, ale jest ich więcej i jest szerszy materiał. Polecam sobie przeznaczyć godzinę dziennie na zadania i robić ile się da, eTrapez jest bardzo pomocny ale tylko do rzeczy których nie ogarniacie po wykładzie, bo po co podwajać naukę jak można trzaskać zadanka
 
 ### Matematyka elementarna
-Zaliczenie: Egzamin i dwa kolokwia
+Zaliczenie: Egzamin
 
 
 Według mnie najtrudniejsza z matematyk, zadania są pół na pół schematyczne, co oznacza dużo zadań typu zauważ, a one są zawsze trudniejsze niż odklepanie kilku kroków z listy
